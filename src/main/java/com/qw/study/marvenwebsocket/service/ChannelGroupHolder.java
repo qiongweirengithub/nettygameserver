@@ -102,7 +102,7 @@ public class ChannelGroupHolder {
             public void accept(Channel channel) {
 
                 if (channel.isWritable()) {
-                    logger.info("room map size:{}, group size:{}", roomMap.size(), group.size(), SerializeUtils.toJson(msgFrame));
+                    logger.info("writable room map size:{}, group size:{}", roomMap.size(), group.size(), SerializeUtils.toJson(msgFrame));
                     channel.writeAndFlush(msgFrame).addListener(future -> {
                         if (!future.isSuccess()) {
                             logger.warn("unexpected push. msg:{} fail:{}", msgFrame, future.cause().getMessage());
@@ -112,9 +112,9 @@ public class ChannelGroupHolder {
                 } else {
                     try {
 //                        channel.writeAndFlush(msgFrame).sync();
-                        logger.info("publish macdonaldMsg, sended. remoteAddress:[{}], msg:[{}]", channel.remoteAddress(), msgFrame);
+                        logger.info("abandon msg remoteAddress:[{}], msg:[{}]", channel.remoteAddress(), msgFrame);
                     } catch (Exception e) {
-                        logger.info("write and flush msg exception. msg:[{}]", msgFrame, e);
+                        logger.info("abandon msg exception. msg:[{}]", msgFrame, e);
                     }
                 }
 
