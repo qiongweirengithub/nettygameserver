@@ -48,7 +48,6 @@ public class MyWebSocketServerHandler extends SimpleChannelInboundHandler<Object
         if (res.status().code() != 200) {
             ByteBuf buf = Unpooled.copiedBuffer(res.status().toString(), CharsetUtil.UTF_8);
             res.content().writeBytes(buf);
-//            buf.retain();
             buf.release();
         }
 
@@ -105,7 +104,7 @@ public class MyWebSocketServerHandler extends SimpleChannelInboundHandler<Object
         // 判断是否ping消息
         if (frame instanceof PingWebSocketFrame) {
             logger.info("ping消息");
-            ctx.channel().write(new PongWebSocketFrame(frame.content().retain()));
+            ctx.channel().writeAndFlush(new PongWebSocketFrame(frame.content().retain()));
             return;
         }
 
