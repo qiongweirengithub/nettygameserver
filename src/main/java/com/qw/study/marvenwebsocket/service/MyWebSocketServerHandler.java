@@ -46,7 +46,7 @@ public class MyWebSocketServerHandler extends SimpleChannelInboundHandler<Object
 
         // 返回应答给客户端
         if (res.status().code() != 200) {
-            ByteBuf buf = Unpooled.copiedBuffer(res.getStatus().toString(), CharsetUtil.UTF_8);
+            ByteBuf buf = Unpooled.copiedBuffer(res.status().toString(), CharsetUtil.UTF_8);
             res.content().writeBytes(buf);
 //            buf.retain();
             buf.release();

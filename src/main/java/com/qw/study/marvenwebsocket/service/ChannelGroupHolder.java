@@ -110,9 +110,9 @@ public class ChannelGroupHolder {
                     });
                 } else {
                     try {
-                        channel.writeAndFlush(msgFrame).sync();
+//                        channel.writeAndFlush(msgFrame).sync();
                         logger.info("publish macdonaldMsg, sended. remoteAddress:[{}], msg:[{}]", channel.remoteAddress(), msgFrame);
-                    } catch (InterruptedException e) {
+                    } catch (Exception e) {
                         logger.info("write and flush msg exception. msg:[{}]", msgFrame, e);
                     }
                 }
