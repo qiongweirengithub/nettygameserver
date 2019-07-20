@@ -97,15 +97,16 @@ public class ChannelGroupHolder {
         }
 //        logger.info("start send msg:{}", SerializeUtils.toJson(msgFrame));
         ChannelGroup group = roomMap.get(groupId);
-        logger.info("room map size:{}, group size:{}", roomMap.size(), group.size(), SerializeUtils.toJson(msgFrame));
         group.forEach(new Consumer<Channel>() {
             @Override
             public void accept(Channel channel) {
 
                 if (channel.isWritable()) {
+                    logger.info("room map size:{}, group size:{}", roomMap.size(), group.size(), SerializeUtils.toJson(msgFrame));
                     channel.writeAndFlush(msgFrame).addListener(future -> {
                         if (!future.isSuccess()) {
                             logger.warn("unexpected push. msg:{} fail:{}", msgFrame, future.cause().getMessage());
+                        } else {
                         }
                     });
                 } else {
