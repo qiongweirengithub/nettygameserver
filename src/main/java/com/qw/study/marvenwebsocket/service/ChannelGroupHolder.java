@@ -27,9 +27,9 @@ public class ChannelGroupHolder {
 
     private static final Logger logger = LoggerFactory.getLogger(ChannelGroupHolder.class);
 
-    private Map<String, ChannelGroup>  roomMap = new HashMap<>();
+    private Map<String, ChannelGroup> roomMap = new HashMap<>();
 
-    private Map<String, String>  channelInfoMap = new HashMap<>();
+    private Map<String, String> channelInfoMap = new HashMap<>();
 
     public Map<String, ChannelGroup> loadAll() {
         return roomMap;
@@ -46,11 +46,11 @@ public class ChannelGroupHolder {
 
 
     public void addToGroup(String groupId, Channel channel) {
-        if(roomMap.get(groupId) == null) {
+        if (roomMap.get(groupId) == null) {
             roomMap.put(groupId, new DefaultChannelGroup(GlobalEventExecutor.INSTANCE));
         }
         ChannelGroup group = roomMap.get(groupId);
-        if(group.contains(channel)) {
+        if (group.contains(channel)) {
             logger.warn("channel:{} is already in group:{}", channel.id(), groupId);
             return;
         }
@@ -60,16 +60,16 @@ public class ChannelGroupHolder {
     }
 
     public String getChannelGroup(Channel channel) {
-        if(channel == null || channel.id()==null) {
+        if (channel == null || channel.id() == null) {
             logger.error("channel data is null");
             throw new BusinessExceptions("channel can not be null");
         }
         String channelId = channel.id().asLongText();
         String groupId = channelInfoMap.get(channelId);
-        if(groupId == null || groupId.length() == 0) {
+        if (groupId == null || groupId.length() == 0) {
             throw new BusinessExceptions("channel:{} has no group info");
         }
-        if(roomMap.get(groupId) == null) {
+        if (roomMap.get(groupId) == null) {
             throw new BusinessExceptions("channel:{}, group:{} has no group");
         }
         return groupId;
@@ -77,7 +77,7 @@ public class ChannelGroupHolder {
 
     public void delGroup(String groupId, WebSocketServerHandshaker handshaker) {
 
-        if(roomMap.get(groupId) == null) {
+        if (roomMap.get(groupId) == null) {
             return;
         }
         ChannelGroup group = roomMap.get(groupId);
@@ -91,7 +91,7 @@ public class ChannelGroupHolder {
     }
 
     private void sendMsg(String groupId, TextWebSocketFrame msgFrame) {
-        if(roomMap.get(groupId) == null) {
+        if (roomMap.get(groupId) == null) {
             logger.warn("channel :{} is null", groupId);
             return;
         }
@@ -101,7 +101,23 @@ public class ChannelGroupHolder {
         group.forEach(new Consumer<Channel>() {
             @Override
             public void accept(Channel channel) {
-                channel.writeAndFlush(msgFrame);
+
+                if (channel.isWritable()) {
+                    channel.writeAndFlush(msgFrame).addListener(future -> {
+                        if (!future.isSuccess()) {
+                            logger.warn("unexpected push. msg:{} fail:{}", msgFrame, future.cause().getMessage());
+                        }
+                    });
+                } else {
+                    try {
+                        channel.writeAndFlush(msgFrame).sync();
+                        logger.info("publish macdonaldMsg, sended. remoteAddress:[{}], msg:[{}]", channel.remoteAddress(), msgFrame);
+                    } catch (InterruptedException e) {
+                        logger.info("write and flush msg exception. msg:[{}]", msgFrame, e);
+                    }
+                }
+
+
             }
         });
 //        logger.info("finish send msg:{}", SerializeUtils.toJson(msgFrame));
@@ -114,7 +130,7 @@ public class ChannelGroupHolder {
         Map<String, Object> nettyMsg = new HashMap<>();
         nettyMsg.put("msg_info", msg);
         nettyMsg.put("msg_type", msgType);
-        TextWebSocketFrame msgFrame  = new TextWebSocketFrame(SerializeUtils.toJson(nettyMsg));
+        TextWebSocketFrame msgFrame = new TextWebSocketFrame(SerializeUtils.toJson(nettyMsg));
 
         /* send by room */
         sendMsg(groupId, msgFrame);
