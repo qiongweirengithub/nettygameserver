@@ -137,12 +137,19 @@ public class ChannelGroupHolder {
         Map<String, Object> nettyMsg = new HashMap<>();
         nettyMsg.put("msg_info", msg);
         nettyMsg.put("msg_type", msgType);
-        TextWebSocketFrame msgFrame = channelInfoMap.get(msg.getPlayerii().getChannel().id().asLongText()).getTextFrame();
-        if(msgFrame == null) {
-            msgFrame = new TextWebSocketFrame(SerializeUtils.toJson(nettyMsg));
+        TextWebSocketFrame msgFrame = null;
+        try {
+            msgFrame = msg.getTextFrame();
+            if(msgFrame == null) {
+                msgFrame = new TextWebSocketFrame(SerializeUtils.toJson(nettyMsg));
 
-        } else {
-            msgFrame.touch(SerializeUtils.toJson(nettyMsg));
+            } else {
+                msgFrame.touch(SerializeUtils.toJson(nettyMsg));
+            }
+
+        } catch (Exception e) {
+            msgFrame = new TextWebSocketFrame(SerializeUtils.toJson(nettyMsg));
+            logger.error("get room msg object exceptions", e);
         }
 
         /* send by room */
@@ -155,15 +162,6 @@ public class ChannelGroupHolder {
         private String channelId;
         private ChannelGroup channelGroup;
         private GamePlayer gamePlayer;
-        private TextWebSocketFrame textFrame;
-
-        public TextWebSocketFrame getTextFrame() {
-            return textFrame;
-        }
-
-        public void setTextFrame(TextWebSocketFrame textFrame) {
-            this.textFrame = textFrame;
-        }
 
         public String getChannelId() {
             return channelId;
