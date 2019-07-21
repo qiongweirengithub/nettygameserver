@@ -95,7 +95,7 @@ public class ScheduleNotificationTask {
             logger.info("no group find");
         }
         logger.info("group size : {}", roomMap.size());
-        gameRoomService.sendToAllPlayer(roomMap.size());
+//        gameRoomService.sendToAllPlayer(roomMap.size());
 
     }
 

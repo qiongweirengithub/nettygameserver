@@ -110,7 +110,7 @@ public class GameRoomService {
 
 
 
-    public void sendToAllPlayer(Object msg) {
+    public void sendToAllPlayer(GameRoom msg) {
         if(gameRomeHolderMap == null) {
             logger.info("no room find");
             return;
