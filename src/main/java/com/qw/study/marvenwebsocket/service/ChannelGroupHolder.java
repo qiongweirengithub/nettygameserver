@@ -2,6 +2,7 @@ package com.qw.study.marvenwebsocket.service;
 
 import cn.hutool.json.JSONUtil;
 import com.qw.study.marvenwebsocket.beans.GamePlayer;
+import com.qw.study.marvenwebsocket.beans.GameRoom;
 import com.qw.study.marvenwebsocket.exceptions.BusinessExceptions;
 import com.qw.study.marvenwebsocket.utils.SerializeUtils;
 import io.netty.channel.Channel;
@@ -130,13 +131,19 @@ public class ChannelGroupHolder {
 
     }
 
-    public void sendMsg(String groupId, Object msg, String msgType) {
+    public void sendMsg(String groupId, GameRoom msg, String msgType) {
 
         /* format msg */
         Map<String, Object> nettyMsg = new HashMap<>();
         nettyMsg.put("msg_info", msg);
         nettyMsg.put("msg_type", msgType);
-        TextWebSocketFrame msgFrame = new TextWebSocketFrame(SerializeUtils.toJson(nettyMsg));
+        TextWebSocketFrame msgFrame = channelInfoMap.get(msg.getPlayerii().getChannel().id().asLongText()).getTextFrame();
+        if(msgFrame == null) {
+            msgFrame = new TextWebSocketFrame(SerializeUtils.toJson(nettyMsg));
+
+        } else {
+            msgFrame.touch(SerializeUtils.toJson(nettyMsg));
+        }
 
         /* send by room */
         sendMsg(groupId, msgFrame);
@@ -148,6 +155,15 @@ public class ChannelGroupHolder {
         private String channelId;
         private ChannelGroup channelGroup;
         private GamePlayer gamePlayer;
+        private TextWebSocketFrame textFrame;
+
+        public TextWebSocketFrame getTextFrame() {
+            return textFrame;
+        }
+
+        public void setTextFrame(TextWebSocketFrame textFrame) {
+            this.textFrame = textFrame;
+        }
 
         public String getChannelId() {
             return channelId;
