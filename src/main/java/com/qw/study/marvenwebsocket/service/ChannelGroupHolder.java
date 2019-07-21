@@ -1,6 +1,7 @@
 package com.qw.study.marvenwebsocket.service;
 
 import cn.hutool.json.JSONUtil;
+import com.qw.study.marvenwebsocket.beans.GamePlayer;
 import com.qw.study.marvenwebsocket.exceptions.BusinessExceptions;
 import com.qw.study.marvenwebsocket.utils.SerializeUtils;
 import io.netty.channel.Channel;
@@ -29,7 +30,7 @@ public class ChannelGroupHolder {
 
     private Map<String, ChannelGroup> roomMap = new HashMap<>();
 
-    private Map<String, String> channelInfoMap = new HashMap<>();
+    private Map<String, ChannelInfo> channelInfoMap = new HashMap<>();
 
     public Map<String, ChannelGroup> loadAll() {
         return roomMap;
@@ -56,7 +57,11 @@ public class ChannelGroupHolder {
         }
         /* create relation of channel and group */
         group.add(channel);
-        channelInfoMap.put(channel.id().asLongText(), groupId);
+        ChannelInfo channelInfo = new ChannelInfo();
+        channelInfo.setChannelGroup(group);
+        channelInfo.setChannelId(channel.id().asLongText());
+        channelInfo.setGamePlayer(new GamePlayer());
+        channelInfoMap.put(channel.id().asLongText(), channelInfo);
     }
 
     public String getChannelGroup(Channel channel) {
@@ -65,14 +70,14 @@ public class ChannelGroupHolder {
             throw new BusinessExceptions("channel can not be null");
         }
         String channelId = channel.id().asLongText();
-        String groupId = channelInfoMap.get(channelId);
-        if (groupId == null || groupId.length() == 0) {
+        ChannelInfo channelInfo = channelInfoMap.get(channelId);
+        if (channelInfo == null || channelInfo.getChannelId() == null || channelInfo.getChannelId().length() == 0) {
             throw new BusinessExceptions("channel:{} has no group info");
         }
-        if (roomMap.get(groupId) == null) {
+        if (roomMap.get(channelInfo.getChannelId()) == null) {
             throw new BusinessExceptions("channel:{}, group:{} has no group");
         }
-        return groupId;
+        return channelInfo.getChannelId();
     }
 
     public void delGroup(String groupId, WebSocketServerHandshaker handshaker) {
@@ -135,6 +140,38 @@ public class ChannelGroupHolder {
 
         /* send by room */
         sendMsg(groupId, msgFrame);
+    }
+
+
+    class ChannelInfo {
+
+        private String channelId;
+        private ChannelGroup channelGroup;
+        private GamePlayer gamePlayer;
+
+        public String getChannelId() {
+            return channelId;
+        }
+
+        public void setChannelId(String channelId) {
+            this.channelId = channelId;
+        }
+
+        public ChannelGroup getChannelGroup() {
+            return channelGroup;
+        }
+
+        public void setChannelGroup(ChannelGroup channelGroup) {
+            this.channelGroup = channelGroup;
+        }
+
+        public GamePlayer getGamePlayer() {
+            return gamePlayer;
+        }
+
+        public void setGamePlayer(GamePlayer gamePlayer) {
+            this.gamePlayer = gamePlayer;
+        }
     }
 
 
