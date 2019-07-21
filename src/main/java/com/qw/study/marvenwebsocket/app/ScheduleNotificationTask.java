@@ -87,7 +87,7 @@ public class ScheduleNotificationTask {
 //
 //    }
 //}
-    @Scheduled(cron = "0/5 * * * * *")
+//    @Scheduled(cron = "0/5 * * * * *")
     public void groupMsg() {
 
         Map<String, ChannelGroup> roomMap = channelGroupHolder.loadAll();
