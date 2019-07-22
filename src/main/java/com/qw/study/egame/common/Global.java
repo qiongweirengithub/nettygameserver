@@ -1,4 +1,4 @@
-package com.qw.study.marvenwebsocket.common;
+package com.qw.study.egame.common;
 
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;

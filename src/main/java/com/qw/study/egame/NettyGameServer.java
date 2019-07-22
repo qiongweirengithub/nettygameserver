@@ -1,6 +1,6 @@
-package com.qw.study.marvenwebsocket;
+package com.qw.study.egame;
 
-import com.qw.study.marvenwebsocket.service.NettyServer;
+import com.qw.study.egame.service.NettyServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 import javax.annotation.PostConstruct;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 

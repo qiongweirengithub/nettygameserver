@@ -1,4 +1,4 @@
-package com.qw.study.marvenwebsocket.utils;
+package com.qw.study.egame.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;

@@ -1,10 +1,9 @@
-package com.qw.study.marvenwebsocket.service;
+package com.qw.study.egame.service;
 
-import cn.hutool.json.JSONUtil;
-import com.qw.study.marvenwebsocket.beans.GamePlayer;
-import com.qw.study.marvenwebsocket.beans.GameRoom;
-import com.qw.study.marvenwebsocket.exceptions.BusinessExceptions;
-import com.qw.study.marvenwebsocket.utils.SerializeUtils;
+import com.qw.study.egame.beans.GamePlayer;
+import com.qw.study.egame.beans.GameRoom;
+import com.qw.study.egame.exceptions.BusinessExceptions;
+import com.qw.study.egame.utils.SerializeUtils;
 import io.netty.channel.Channel;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;

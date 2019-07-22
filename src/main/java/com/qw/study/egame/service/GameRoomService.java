@@ -1,9 +1,9 @@
-package com.qw.study.marvenwebsocket.service;
+package com.qw.study.egame.service;
 
-import com.qw.study.marvenwebsocket.beans.GamePlayer;
-import com.qw.study.marvenwebsocket.beans.GameRoom;
-import com.qw.study.marvenwebsocket.common.GameConstants;
-import com.qw.study.marvenwebsocket.exceptions.BusinessExceptions;
+import com.qw.study.egame.beans.GamePlayer;
+import com.qw.study.egame.beans.GameRoom;
+import com.qw.study.egame.common.GameConstants;
+import com.qw.study.egame.exceptions.BusinessExceptions;
 import io.netty.channel.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

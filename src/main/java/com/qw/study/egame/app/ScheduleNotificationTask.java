@@ -1,23 +1,14 @@
-package com.qw.study.marvenwebsocket.app;
+package com.qw.study.egame.app;
 
-import com.qw.study.marvenwebsocket.common.Global;
-import com.qw.study.marvenwebsocket.service.ChannelGroupHolder;
-import com.qw.study.marvenwebsocket.service.GameRoomService;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelId;
+import com.qw.study.egame.service.ChannelGroupHolder;
+import com.qw.study.egame.service.GameRoomService;
 import io.netty.channel.group.ChannelGroup;
-import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
-import org.checkerframework.checker.units.qual.A;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
 import java.util.Map;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 /**
  * @author : qw.r

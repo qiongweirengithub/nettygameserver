@@ -1,4 +1,4 @@
-package com.qw.study.marvenwebsocket.beans;
+package com.qw.study.egame.beans;
 
 
 import cn.hutool.json.JSONUtil;

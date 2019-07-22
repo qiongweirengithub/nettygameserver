@@ -1,7 +1,5 @@
-package com.qw.study.marvenwebsocket.beans;
+package com.qw.study.egame.beans;
 
-import jdk.nashorn.internal.ir.debug.JSONWriter;
-import jdk.nashorn.internal.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

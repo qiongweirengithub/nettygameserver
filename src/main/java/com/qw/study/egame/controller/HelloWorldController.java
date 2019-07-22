@@ -1,6 +1,6 @@
-package com.qw.study.marvenwebsocket.controller;
+package com.qw.study.egame.controller;
 
-import com.qw.study.marvenwebsocket.beans.UserInfoVo;
+import com.qw.study.egame.beans.UserInfoVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;

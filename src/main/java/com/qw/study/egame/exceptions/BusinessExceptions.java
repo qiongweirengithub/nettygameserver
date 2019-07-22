@@ -1,4 +1,4 @@
-package com.qw.study.marvenwebsocket.exceptions;
+package com.qw.study.egame.exceptions;
 
 /**
  * @author : qw.r

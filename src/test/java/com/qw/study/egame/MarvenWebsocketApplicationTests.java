@@ -1,4 +1,4 @@
-package com.qw.study.marvenwebsocket;
+package com.qw.study.egame;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

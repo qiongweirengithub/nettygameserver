@@ -1,9 +1,9 @@
-package com.qw.study.marvenwebsocket.service;
+package com.qw.study.egame.service;
 
 import cn.hutool.json.JSONUtil;
-import com.qw.study.marvenwebsocket.beans.GamePlayer;
-import com.qw.study.marvenwebsocket.common.Global;
-import com.qw.study.marvenwebsocket.utils.SerializeUtils;
+import com.qw.study.egame.beans.GamePlayer;
+import com.qw.study.egame.common.Global;
+import com.qw.study.egame.utils.SerializeUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
@@ -11,15 +11,12 @@ import io.netty.handler.codec.http.*;
 import io.netty.handler.codec.http.websocketx.*;
 import io.netty.util.AttributeKey;
 import io.netty.util.CharsetUtil;
-import io.netty.util.ReferenceCountUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

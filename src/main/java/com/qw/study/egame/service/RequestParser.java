@@ -1,4 +1,4 @@
-package com.qw.study.marvenwebsocket.service;
+package com.qw.study.egame.service;
 
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.HttpMethod;

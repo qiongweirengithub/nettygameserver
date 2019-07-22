@@ -1,4 +1,4 @@
-package com.qw.study.marvenwebsocket.common;
+package com.qw.study.egame.common;
 
 /**
  * @author : qw.r
