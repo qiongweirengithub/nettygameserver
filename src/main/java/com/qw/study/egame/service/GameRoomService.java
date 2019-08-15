@@ -85,7 +85,7 @@ public class GameRoomService {
         }
 
         GamePlayer player = new GamePlayer();
-        player.setChannel(channel);
+//        player.setChannel(channel);
         player.setId(playerId);
         player.setName(playerName);
         player.setRoomId(group);
