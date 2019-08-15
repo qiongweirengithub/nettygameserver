@@ -108,6 +108,7 @@ public class ChannelGroupHolder {
 
                 if (channel.isWritable()) {
                     logger.info("writable room map size:{}, group size:{}", roomMap.size(), group.size(), SerializeUtils.toJson(msgFrame));
+                    channel.config();
                     channel.writeAndFlush(msgFrame).addListener(future -> {
                         if (!future.isSuccess()) {
                             logger.warn("unexpected push. msg:{} fail:{}", msgFrame, future.cause().getMessage());
