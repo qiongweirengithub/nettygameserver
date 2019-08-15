@@ -42,6 +42,8 @@ public class NettyServer {
                     )
                     .childOption(ChannelOption.TCP_NODELAY, true)
                     .childOption(ChannelOption.SO_KEEPALIVE, true)
+                    .option(ChannelOption.TCP_NODELAY, true)
+                    .option(ChannelOption.SO_KEEPALIVE, true)
                     .option(ChannelOption.SO_BACKLOG, 1024)
                     .option(ChannelOption.WRITE_BUFFER_WATER_MARK, new WriteBufferWaterMark(4* 1024, 8 * 1024));
 
